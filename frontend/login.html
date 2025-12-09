@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping App - Login</title>
+</head>
+<body>
+  <h2>Login</h2>
+
+  <input type="text" id="username" placeholder="Username"><br><br>
+  <input type="password" id="password" placeholder="Password"><br><br>
+
+  <button onclick="login()">Login</button>
+
+  <p id="result"></p>
+
+  <script>
+    function login() {
+      fetch("http://localhost:5001/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("result").innerText = data.message;
+      })
+      .catch(() => {
+        document.getElementById("result").innerText = "Server error";
+      });
+    }
+  </script>
+</body>
+</html>
